@@ -34,8 +34,8 @@ def login():
         account = mycursor.fetchone()
         if account:
             session['loggedin'] = True
-            session['id'] = account['id']
-            session['username'] = account['username']
+            session['id'] = account[0]
+            session['username'] = account[1]
             msg = 'Logged in successfully !'
             return render_template('index.html', msg = msg)
         else:
@@ -69,7 +69,7 @@ def register():
         elif not re.match(r'[A-Za-z0-9]+', username):
             msg = 'name must contain only characters and numbers !'
         else:
-            mycursor.execute("INSERT INTO accounts (username, password, email, city, country) VALUES (%s, %s, %s, %s, %s)")
+            in mycursor.execute("INSERT INTO accounts (username, password, email, city, country) VALUES (%s, %s, %s, %s, %s)", (username, password, email, city, country))
             mydb.commit()
             msg = 'You have successfully registered !'
     elif request.method == 'POST':
