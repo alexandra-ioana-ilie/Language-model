@@ -83,7 +83,7 @@ def index():
         return render_template("index.html")
     return redirect(url_for('login'))
   
-             @app.route("/display")
+@app.route("/display")
 def display():
     if 'loggedin' in session:
         mycursor.execute('SELECT * FROM accounts WHERE id = %s', (session['id'], ))
